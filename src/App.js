@@ -1,23 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import useFetch from "./FetchData.js";
+import useWindowSize from './DeviceDimension.js';
 
 function App() {
+  const jsondata = useFetch();
+  const [data, setData] = useState([]);
+  let windowSize = useWindowSize();
+  useEffect(()=>{
+    setData(jsondata)
+  },[jsondata]);
+
+  
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+        <div>
+          
+        </div>
+        <button
+          onClick={() => {
+            console.log(windowSize)
+          }}
         >
-          Learn React
-        </a>
+          Get dimension
+        </button>
       </header>
     </div>
   );
