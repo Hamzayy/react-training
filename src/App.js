@@ -1,31 +1,33 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./App.css";
-import useFetch from "./FetchData.js";
-import useWindowSize from './DeviceDimension.js';
+import Homescreen from "./Homescreen";
+import WrappedComponent from "./WrappedComponent";
+import UserDemo from './UserCrud';
+
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
-  const jsondata = useFetch();
-  const [data, setData] = useState([]);
-  let windowSize = useWindowSize();
-  useEffect(()=>{
-    setData(jsondata)
-  },[jsondata]);
-
-  
   return (
     <div className="App">
-      <header className="App-header">
-        <div>
-          
-        </div>
-        <button
-          onClick={() => {
-            console.log(windowSize)
-          }}
-        >
-          Get dimension
-        </button>
-      </header>
+    <Router>
+        <Switch>
+          <Route exact path="/" render={props => <Homescreen />} />
+          <Route
+            exact
+            path="/hoc"
+            render={props => {
+              return <WrappedComponent />;
+            }}
+          />
+          <Route
+            exact
+            path="/reducer"
+            render={props => {
+              return <UserDemo />;
+            }}
+          />
+        </Switch>
+      </Router>
     </div>
   );
 }
